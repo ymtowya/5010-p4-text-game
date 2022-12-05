@@ -2,12 +2,21 @@ package model.creature;
 
 import model.graph.Coordinate;
 
+/**
+ * This is one implementation of the otyugh in the dungeon.
+ *
+ */
 public class DungeonOtyugh implements Otyugh {
 
   private int row;
   private int col;
   private LifeCondition lc;
   
+  /**
+   * Initialize the otyugh with its coordinate.
+   *
+   * @param c its position
+   */
   public DungeonOtyugh(Coordinate c) {
     this.setByCoord(c);
     this.lc = LifeCondition.HEALTHY;
@@ -62,6 +71,7 @@ public class DungeonOtyugh implements Otyugh {
         break;
       case HURT:
         this.lc = LifeCondition.DEAD;
+        break;
       default:
         break;
     }

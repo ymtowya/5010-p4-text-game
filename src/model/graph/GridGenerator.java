@@ -1,7 +1,6 @@
 package model.graph;
 
 import java.util.Set;
-
 import model.creature.Otyugh;
 import model.creature.Smell;
 
@@ -125,15 +124,35 @@ public interface GridGenerator {
    */
   Set<Coordinate> geneRandomCaves(double prob);
   
+  /**
+   * Generate a set of random caves by given number.
+   *
+   * @param nums number of caves
+   * @return set of caves
+   */
   Set<Coordinate> geneRandomCavesByNum(int nums);
   
+  /**
+   * Get the smell at the position.
+   *
+   * @param c position
+   * @return the smell
+   */
   Smell getSmellAt(Coordinate c);
   
-  int[][] getSmellGrid();
-  
+  /**
+   * Update the smell grid with given set of otyughs.
+   *
+   * @param otyughs set of otyughs in the map
+   */
   void updateSmellGrid(Set<Otyugh> otyughs);
   
+  /**
+   * Generate random locations in the map.
+   *
+   * @param nums number of locations
+   * @return set of the locations
+   */
   Set<Coordinate> geneRandomLocs(int nums);
-  
-  
+    
 }

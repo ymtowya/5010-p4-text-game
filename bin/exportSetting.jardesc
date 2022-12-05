@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="GBK" standalone="no"?>
+<jardesc>
+    <jar path="proj4-text-game/res/p4-text-game.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/proj4-text-game/bin/exportSetting.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" mainClassHandleIdentifier="=proj4-text-game/src&lt;controller{DungeonGameDriver.java[DungeonGameDriver" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="true">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <javaElement handleIdentifier="=proj4-text-game/test"/>
+        <javaElement handleIdentifier="=proj4-text-game/src"/>
+        <file path="/proj4-text-game/.classpath"/>
+        <file path="/proj4-text-game/.project"/>
+    </selectedElements>
+</jardesc>

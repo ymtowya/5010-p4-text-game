@@ -2,13 +2,10 @@ package model.graph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-
-import model.Direction;
 import model.creature.LifeCondition;
 import model.creature.Otyugh;
 import model.creature.Smell;
@@ -165,6 +162,10 @@ public class KruskalGridGenerator implements GridGenerator {
     Coordinate newCoor = getNextCoor(c, d);
     adj[modRow(newCoor)][modCol(newCoor)][getOppDir(d)] = true;
     return true;
+  }
+  
+  private void shuffleCoords(List<Coordinate> l) {
+    rh.shuffleCoords(l);
   }
   
   private void initGrid() {
@@ -440,7 +441,7 @@ public class KruskalGridGenerator implements GridGenerator {
       }
     }
     final int nums = (int) Math.ceil(prob * list.size());
-    Collections.shuffle(list);
+    shuffleCoords(list);
     
     return new HashSet<>(list.subList(0, nums));
   }
@@ -454,11 +455,6 @@ public class KruskalGridGenerator implements GridGenerator {
       return Smell.NORMAL;
     }
     return Smell.STRONG;
-  }
-
-  @Override
-  public int[][] getSmellGrid() {
-    return smells;
   }
   
   private boolean firstLayerCheck(int i, int j, Set<Coordinate> otyughLocs,
@@ -497,12 +493,12 @@ public class KruskalGridGenerator implements GridGenerator {
       }
     }
     int countOtyugh = 0;
-    for (Coordinate slc: secondLayer) {
+    for (Coordinate slc : secondLayer) {
       if (otyughLocs.contains(slc)) {
         countOtyugh++;
       }
     }
-    smells[i][j]= countOtyugh; 
+    smells[i][j] = countOtyugh; 
   }
 
   @Override
@@ -535,11 +531,9 @@ public class KruskalGridGenerator implements GridGenerator {
         }
       }
     }
-    Collections.shuffle(list);
+    shuffleCoords(list);
     Set<Coordinate> res = new HashSet<>(list.subList(0, nums - 1));
     res.add(end);
-    // TODO
-    assert(res.size() == nums);
     return res;
   }
 

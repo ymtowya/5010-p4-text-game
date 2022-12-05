@@ -75,5 +75,17 @@ public interface RandomHelper {
    */
   Direction directionChoice(Set<Direction> ds);
   
+  /**
+   * Tell if the player can escape the hurt otyugh.
+   *
+   * @return true if escaped, false otherwise
+   */
   boolean escape();
+  
+  /**
+   * Shuffle the list of coordinates.
+   *
+   * @param l list of coordinates
+   */
+  void shuffleCoords(List<Coordinate> l);
 }

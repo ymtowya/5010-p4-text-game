@@ -3,9 +3,7 @@ package model.creature;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
-
 import model.accessory.Arrow;
 import model.accessory.DungeonArrow;
 import model.accessory.Treasure;
@@ -13,7 +11,6 @@ import model.graph.Coordinate;
 
 /**
  * An implementation of the player in the dungeon.
- *
  *
  */
 public class DungeonPlayer implements Player {

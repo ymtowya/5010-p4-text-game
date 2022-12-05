@@ -4,16 +4,20 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Set;
-
 import model.Direction;
 import model.game.DungeonGame;
 import model.game.DungeonGameImpl;
 
+/**
+ * This represents the controller for the Dungeon Game.
+ *
+ *
+ */
 public class DungeonGameController {
   
   private DungeonGame game;
-  private int r;
-  private int c; 
+  private int row;
+  private int col; 
   private int conn;
   private boolean isWrap;
   private String playerName;
@@ -21,7 +25,13 @@ public class DungeonGameController {
   private int otyughNum;
   private BufferedReader reader;
   private BufferedWriter writer;
-  
+ 
+  /**
+   * Initialize the controller with reader and writer.
+   *
+   * @param r reader
+   * @param w writer
+   */
   public DungeonGameController(BufferedReader r, BufferedWriter w) {
     this.reader = r;
     this.writer = w;
@@ -32,13 +42,27 @@ public class DungeonGameController {
     writer.flush();
   }
   
+  private boolean isNumeric(String strNum) {
+    if (strNum == null) {
+      return false;
+    }
+    try {
+      Integer.parseInt(strNum);
+    } catch (NumberFormatException nfe) {
+      return false;
+    }
+    return true;
+  }
+  
   private int getInt(int mi, int ma, String hint) {
-    assert(mi <= ma);
     int tmp = mi;
-    while(true) {
+    while (true) {
       try {
         printOut(hint);
         String in = reader.readLine();
+        if (!isNumeric(in)) {
+          continue;
+        }
         tmp = Integer.parseInt(in);
         if (tmp <= ma && tmp >= mi) {
           break;
@@ -48,7 +72,7 @@ public class DungeonGameController {
       } catch (IOException e) {
         e.printStackTrace();
       } catch (NumberFormatException e) {
-        e.printStackTrace();
+        continue;
       }
     }
     return tmp;
@@ -56,7 +80,7 @@ public class DungeonGameController {
   
   private String getStr(Set<String> ables, String hint) {
     String tmp = "";
-    while(true) {
+    while (true) {
       try {
         printOut(hint);
         tmp = reader.readLine().toLowerCase();
@@ -81,13 +105,13 @@ public class DungeonGameController {
 
   private void gameSet() {
     try {
-      printOut("Welcome to the dungeon game!\n" +
-          "Please input key parameters for the game:\n\n");
-      this.r = getInt(5, 20, "The number of rows for the dungeon (5 - 20) :");
-      this.c = getInt(5, 20, "The number of columns for the dungeon (5 - 20) :");
-      this.conn = getInt(0, 10, "The connectivity of the dungeon (0 - 10) :");
-      this.isWrap = "y".equals(getStr(Set.of(new String[] {"y", "f"}),
-          "Is the dungeon wrapped or not (y/f) :"));
+      printOut("Welcome to the dungeon game!\n"
+          + "Please input key parameters for the game:\n\n");
+      this.row = getInt(5, 20, "The number of rows for the dungeon (5 - 20) :");
+      this.col = getInt(5, 20, "The number of columns for the dungeon (5 - 20) :");
+      this.conn = getInt(0, 8, "The connectivity of the dungeon (0 - 8) :");
+      this.isWrap = "y".equals(getStr(Set.of(new String[] {"y", "n"}),
+          "Is the dungeon wrapped or not (y/n) :"));
       this.percent = (double) getInt(0, 100,
           "Percentage(%) of caves with treasures (0 - 100) :") * 0.01;
       this.playerName = getStr(null, "The name of the player :");
@@ -98,15 +122,20 @@ public class DungeonGameController {
     this.init();
   }
   
-  public Boolean run() {
+  /**
+   * This function lets the controller start running,
+   * while receiving input and giving output.
+   *
+   */
+  public void run() {
     Boolean goon = true;
     try {
       gameSet();
-      while(goon) {
+      while (goon) {
         String descPos = game.getPositionDes();
         printOut(descPos);
         String cmd = getStr(Set.of(new String[] {"m", "p", "s", "q"}),
-          "Move, Pickup, Shoot, or Quit (m-p-s-q)? :");
+            "Move, Pickup, Shoot, or Quit (m-p-s-q)? :");
         if ("m".equals(cmd)) {
           Direction d = getDir();
           if (game.playerCanWalk(d)) {
@@ -126,16 +155,17 @@ public class DungeonGameController {
         printOut(descPos);
         goon = !game.isOver();
       }
+      printOut(game.result());
+      printOut(game.playerString());
     } catch (IOException e) {
       e.printStackTrace();
     } catch (IllegalArgumentException e) {
       e.printStackTrace();
     }
-    return true;
   }
   
   private void init() {
-    game = new DungeonGameImpl(r, c, conn, isWrap, playerName, percent, otyughNum);
+    game = new DungeonGameImpl(row, col, conn, isWrap, playerName, percent, otyughNum);
   }
 
 }

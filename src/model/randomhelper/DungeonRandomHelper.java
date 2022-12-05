@@ -2,6 +2,7 @@ package model.randomhelper;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -120,6 +121,11 @@ public class DungeonRandomHelper implements RandomHelper {
   @Override
   public boolean escape() {
     return this.randomInt(0, 1) == 0;
+  }
+
+  @Override
+  public void shuffleCoords(List<Coordinate> l) {
+    Collections.shuffle(l);
   }
 
 }

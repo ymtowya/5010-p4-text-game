@@ -139,15 +139,50 @@ public interface DungeonMap {
    */
   void removeTreauseAt(Coordinate c);
   
-  Coordinate getNextCoord(Coordinate c, Direction d);
-  
+  /**
+   * Get the other direction of the given tunnel.
+   *
+   * @param c position of the tunnel
+   * @param d the given direction
+   * @return the other direction
+   */
   Direction getTunnelAnotherDirection(Coordinate c, Direction d);
   
+  /**
+   * Get the set of otyughs in the map.
+   *
+   * @return set of otyughs
+   */
   Set<Otyugh> getOtyughs();
   
+  /**
+   * Tell if the map has a otyugh at given position.
+   *
+   * @param c position
+   * @return true if has an otyugh, false otherwise
+   */
   boolean hasOtyughAt(Coordinate c);
   
+  /**
+   * Get the otyugh at the given position.
+   *
+   * @param c position
+   * @return the otyugh
+   */
   Otyugh getOtyughAt(Coordinate c);
   
+  /**
+   * Get the item holder at the given position.
+   *
+   * @param c the position
+   * @return the holder at the position
+   */
   ItemHolder getHolderAt(Coordinate c);
+  
+  /**
+   * Add otyughs to the map.
+   *
+   * @param os otyughs to be added
+   */
+  void addOtyugh(Set<Otyugh> os);
 }

@@ -33,6 +33,7 @@ public class DungeonMapImpl implements DungeonMap {
    * @param col column numbers
    * @param connectivity the connectivity of the graph
    * @param wrapped if is wrapped or not
+   * @param newOtyughs new otyughs to be added
    */
   public DungeonMapImpl(int row, int col,
       int connectivity, boolean wrapped, Set<Otyugh> newOtyughs) {
@@ -204,11 +205,6 @@ public class DungeonMapImpl implements DungeonMap {
   }
 
   @Override
-  public Coordinate getNextCoord(Coordinate c, Direction d) {
-    return null;
-  }
-
-  @Override
   public Direction getTunnelAnotherDirection(Coordinate c, Direction d) {
     Location l = locationAt(c);
     if (!l.isCave()) {
@@ -230,8 +226,8 @@ public class DungeonMapImpl implements DungeonMap {
   @Override
   public boolean hasOtyughAt(Coordinate c) {
     for (Otyugh o : otyughs) {
-      if (c.equals(o.getCoord()) &&
-          o.getLifeCondition() != LifeCondition.DEAD) {
+      if (c.equals(o.getCoord())
+          && o.getLifeCondition() != LifeCondition.DEAD) {
         return true;
       }
     }
@@ -251,6 +247,11 @@ public class DungeonMapImpl implements DungeonMap {
   @Override
   public ItemHolder getHolderAt(Coordinate c) {
     return this.locationAt(c);
+  }
+
+  @Override
+  public void addOtyugh(Set<Otyugh> os) {
+    this.otyughs.addAll(os);
   }
 
 }

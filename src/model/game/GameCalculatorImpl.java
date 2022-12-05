@@ -1,11 +1,9 @@
 package model.game;
 
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import model.Direction;
@@ -85,7 +83,7 @@ public class GameCalculatorImpl implements GameCalculator {
     Set<Coordinate> locs = g.geneRandomLocs(coors.size() * 2);
     for (Coordinate c : locs) {
       Deque<Arrow> tmp = new LinkedList<>();
-      for (int i = rh.randomInt(1, 3); i > 0 ; --i) {
+      for (int i = rh.randomInt(1, 3); i > 0; --i) {
         tmp.add(new DungeonArrow());
       }
       m.getHolderAt(c).addArrow(tmp);
@@ -113,8 +111,8 @@ public class GameCalculatorImpl implements GameCalculator {
     theMap.setStart(genetor.getStart());
     theMap.setEnd(genetor.getEnd());
     setTreasures(genetor, theMap, treasureProb);
-    System.out.println(genetor.getAdjStr());
-    System.out.println(genetor.getStepRecordString(theMap.getStart()));
+    // System.out.println(genetor.getAdjStr());
+    // System.out.println(genetor.getStepRecordString(theMap.getStart()));
     return theMap;
   }
 
@@ -236,7 +234,7 @@ public class GameCalculatorImpl implements GameCalculator {
   @Override
   public String getLocationString(DungeonMap m, Coordinate c) {
     StringBuilder sb = new StringBuilder();
-    sb.append("---- Location Description ----\n");
+    sb.append("\n---- Location Description ----\n");
     sb.append("Player is currently at : ");
     sb.append(c.toString());
     sb.append("\nThis place is a ");
@@ -267,18 +265,21 @@ public class GameCalculatorImpl implements GameCalculator {
   }
   
   @Override
-  public void shootArrow(DungeonMap m, Player p, Direction d, int caveNums) {
+  public String shootArrow(DungeonMap m, Player p, Direction d, int caveNums) {
     Coordinate c = p.getCoord();
+    StringBuilder sb = new StringBuilder();
     Direction nowDir = d;
     int countCave = 0;
     boolean hit = false;
     boolean dead = false;
-    Arrow arrow = p.useOneArrow();
+    if (!p.hasArrow()) {
+      return "You don't have any arrows in pocket now.\n";
+    }
+    p.useOneArrow();
     while (countCave < caveNums) {
       if (m.canWalk(c, nowDir)) {
         c = getMapNextCoor(m, c, nowDir);
       } else if (!m.isCave(c)) {
-        // is Tunnel
         nowDir = m.getTunnelAnotherDirection(c, nowDir);
         c = getMapNextCoor(m, c, nowDir);
       } else {
@@ -291,7 +292,7 @@ public class GameCalculatorImpl implements GameCalculator {
         break;
       }
     }
-    if (m.hasOtyughAt(c) && arrow != null) {
+    if (m.hasOtyughAt(c) && countCave == caveNums) {
       Otyugh o = m.getOtyughAt(c);
       hit = true;
       LifeCondition lc = o.getLifeCondition();
@@ -299,12 +300,21 @@ public class GameCalculatorImpl implements GameCalculator {
         dead = true;
       } else if (lc == LifeCondition.HURT) {
         dead = true;
-        o.beHurt();
-      } else {
-        o.beHurt();
       }
+      o.beHurt();
       genetor.updateSmellGrid(m.getOtyughs());
+    } else {
+      return "The arrow didn't hit any otyugh.\n";
     }
+    if (hit) {
+      sb.append("Wow! The arrow successfully hit an otyugh!\n");
+      if (dead) {
+        sb.append("And it's dead now.\n");
+      } else {
+        sb.append("Sadly it's not dead yet. Give one more hit!\n");
+      }
+    }
+    return sb.toString();
   }
 
   @Override
@@ -333,7 +343,6 @@ public class GameCalculatorImpl implements GameCalculator {
     for (Coordinate c : caves) {
       Otyugh o = new DungeonOtyugh(c);
       otyughs.add(o);
-      System.out.println(o.getCoord());
     }
     return otyughs;
   }

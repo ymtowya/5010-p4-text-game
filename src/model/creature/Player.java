@@ -1,7 +1,5 @@
 package model.creature;
 
-import java.util.List;
-
 import model.accessory.Arrow;
 import model.accessory.ItemHolder;
 import model.graph.Coordinate;
@@ -54,9 +52,24 @@ public interface Player extends ItemHolder {
    */
   void setCol(int newCol);
   
+  /**
+   * Use up one arrow.
+   *
+   * @return the used arrow
+   */
   Arrow useOneArrow();
   
+  /**
+   * Tell if it's still alive.
+   *
+   * @return true if it's alive, false otherwise
+   */
   boolean isAlive();
   
+  /**
+   * Set the life condition of the player.
+   *
+   * @param l new life condition
+   */
   void setLife(boolean l);
 }

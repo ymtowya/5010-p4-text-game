@@ -1,0 +1,263 @@
+Welcome to the dungeon game!
+Please input key parameters for the game:
+
+The number of rows for the dungeon (5 - 20) :5
+The number of columns for the dungeon (5 - 20) :7
+The connectivity of the dungeon (0 - 8) :4
+Is the dungeon wrapped or not (y/n) :y
+Percentage(%) of caves with treasures (0 - 100) :50
+The name of the player :Ryan
+The number of otyughs (1 - 10) :2
+
+
+---- Location Description ----
+Player is currently at : (0, 3)
+This place is a cave
+Treasures at this location : {RUBIES=1, SAPPHIRES=3, DIAMONDS=1}
+You found 1 arrows here.
+You can walk through these directions: [NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : STRONG
+There are 3 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :p
+You picked up 5 treasures;
+You picked up 1 arrows;
+
+---- Location Description ----
+Player is currently at : (0, 3)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : STRONG
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :s
+Please input the Direction (n/e/s/w) : e
+The number of caves (1 - 5) :1
+Wow! The arrow successfully hit an otyugh!
+Sadly it's not dead yet. Give one more hit!
+
+---- Location Description ----
+Player is currently at : (0, 3)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : STRONG
+There are 3 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :s
+Please input the Direction (n/e/s/w) : e
+The number of caves (1 - 5) :1
+Wow! The arrow successfully hit an otyugh!
+And it's dead now.
+
+---- Location Description ----
+Player is currently at : (0, 3)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 2 arrows in your pocket now.
+
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : w
+Sorry, you cannot walk for this direction.
+
+---- Location Description ----
+Player is currently at : (0, 3)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 2 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : w
+Sorry, you cannot walk for this direction.
+
+---- Location Description ----
+Player is currently at : (0, 3)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 2 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : n
+The player has moved to the new location: (4, 3)
+
+---- Location Description ----
+Player is currently at : (4, 3)
+This place is a tunnel
+You found 0 arrows here.
+You can walk through these directions: [WEST, SOUTH]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 2 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : w
+The player has moved to the new location: (4, 2)
+
+---- Location Description ----
+Player is currently at : (4, 2)
+This place is a cave
+Treasures at this location : {}
+You found 2 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 2 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :p
+There are no treasures found here.
+You picked up 2 arrows;
+
+---- Location Description ----
+Player is currently at : (4, 2)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : w
+The player has moved to the new location: (4, 1)
+
+---- Location Description ----
+Player is currently at : (4, 1)
+This place is a cave
+Treasures at this location : {RUBIES=2, SAPPHIRES=3, DIAMONDS=3}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :p
+You picked up 8 treasures;
+There are no arrows found here.
+
+---- Location Description ----
+Player is currently at : (4, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : n
+The player has moved to the new location: (3, 1)
+
+---- Location Description ----
+Player is currently at : (3, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH]
+---- End Of Description ----
+The smell you feel here is : NORMAL
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : s
+The player has moved to the new location: (4, 1)
+
+---- Location Description ----
+Player is currently at : (4, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : n
+The player has moved to the new location: (3, 1)
+
+---- Location Description ----
+Player is currently at : (3, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH]
+---- End Of Description ----
+The smell you feel here is : NORMAL
+There are 4 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :s
+Please input the Direction (n/e/s/w) : n
+The number of caves (1 - 5) :1
+Wow! The arrow successfully hit an otyugh!
+Sadly it's not dead yet. Give one more hit!
+
+---- Location Description ----
+Player is currently at : (3, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH]
+---- End Of Description ----
+The smell you feel here is : NORMAL
+There are 3 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :s
+Please input the Direction (n/e/s/w) : n
+The number of caves (1 - 5) :3
+The arrow didn't hit any otyugh.
+
+---- Location Description ----
+Player is currently at : (3, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH]
+---- End Of Description ----
+The smell you feel here is : NORMAL
+There are 2 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :s
+Please input the Direction (n/e/s/w) : n
+The number of caves (1 - 5) :1
+Wow! The arrow successfully hit an otyugh!
+And it's dead now.
+
+---- Location Description ----
+Player is currently at : (3, 1)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, SOUTH]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 1 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : w
+The player has moved to the new location: (3, 0)
+
+---- Location Description ----
+Player is currently at : (3, 0)
+This place is a cave
+Treasures at this location : {}
+You found 0 arrows here.
+You can walk through these directions: [WEST, NORTH, EAST]
+---- End Of Description ----
+The smell you feel here is : NONE
+There are 1 arrows in your pocket now.
+Move, Pickup, Shoot, or Quit (m-p-s-q)? :m
+Please input the Direction (n/e/s/w) : n
+The player has moved to the new location: (2, 0)
+Congratulations! You've made it to the destination!
+See you next time~
+Result: You win!
+---- Player Description ----
+Name : ryan
+Position : (2, 0)
+Treasures : 
+{RUBIES=3, SAPPHIRES=6, DIAMONDS=4}
+---- End Of Description ----

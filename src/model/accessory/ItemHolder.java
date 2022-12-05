@@ -44,13 +44,37 @@ public interface ItemHolder {
    */
   int getTotalTreasure();
   
+  /**
+   * Tell if the holder still has arrow.
+   *
+   * @return true if still has arrow, false otherwise
+   */
   boolean hasArrow();
   
+  /**
+   * Clear all of the possessed arrows.
+   *
+   */
   void clearArrow();
   
+  /**
+   * Add arrows to possession.
+   *
+   * @param a arrows to be added
+   */
   void addArrow(Deque<Arrow> a);
   
+  /**
+   * Get total count of arrows.
+   *
+   * @return count of arrows
+   */
   int arrowCount();
   
+  /**
+   * Get arrows in a queue.
+   *
+   * @return queue of arrows
+   */
   Deque<Arrow> getArrows();
 }

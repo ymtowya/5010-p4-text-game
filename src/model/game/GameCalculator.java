@@ -27,6 +27,7 @@ public interface GameCalculator {
    * @param conn connectivity
    * @param isWrap is wrapped or not
    * @param treasureProb percentage of caves with treasure
+   * @param otyughs number of otyughs
    * @return a new set Dungeon Map
    */
   DungeonMap initGame(int row, int col, int conn,
@@ -112,7 +113,7 @@ public interface GameCalculator {
    */
   Set<Direction> walkableDirs(DungeonMap m, Player p);
   
-  void shootArrow(DungeonMap m, Player p, Direction d, int caveNums);
+  String shootArrow(DungeonMap m, Player p, Direction d, int caveNums);
   
   Smell getSmellAt(DungeonMap m, Player p);
   
