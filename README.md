@@ -26,15 +26,16 @@ This project is developed upon Project 3, adding several features to it, and pro
 
 * Run the JAR file:
 
+    We provided both the runnable jar & the executable jar this time.
+
     If you have JRE installed on your environment, Double-Click the runnable jar`./res/p4-text-game.jar` is fine enough.<br/>
-    Or if you havn't installed, then in the project root file's terminal, put in command
+    Or if this failed, or you havn't installed, then in the project root file's terminal, put in command
     `java -jar ./res/runnable/p4-text-game-runnable.jar` <br />
     *Note*: Don't delete the `./res/runnable/res` folder! It's critical.
 
 ### Useage
 
-You are encouraged to import the public classes and discover the extendable features in it. After you initialize the controller with essential reader and writer, you can call the controller to do all the rest work. It will run and consume input and give output. <br />
-The game will continue with abundant information hints given.<br />
+You are encouraged to import the public classes and discover the extendable features in it. After you initialize the controller with essential reader and writer, you can call the controller to do all the rest work. It will run and consume input and give output. The game will continue with abundant information hints given.<br />
 
 ### Examples
 
@@ -47,7 +48,7 @@ The third one shows that we killed the otyugh and made it to the end destination
 
 ### Design
 
-One BIG change I made was I put many functions into the Grid Generator because it can keep information in a simple way. It will do the calculation of the 'smell' attributes and give it out in `O(1)` time, which is faster than putting the process in the calculator and do the `O(n^2)` work every time. What's more, it did not interfere with the Map model itself. By doing so, our DungeonMap implementations are seperated from the calculation work or caring about connectivity or smells, only maintaining the model datas.
+Mostly we stayed to the initial design. One change I made was I put many functions into the Grid Generator because it can keep information in a simple way. It will do the calculation of the 'smell' attributes and give it out in `O(1)` time, which is faster than putting the process in the calculator and do the `O(n^2)` work every time. What's more, it did not interfere with the Map model itself. By doing so, our DungeonMap implementations are seperated from the calculation work or caring about connectivity or smells, only maintaining the model datas.
 
 ### Assumptions
 
