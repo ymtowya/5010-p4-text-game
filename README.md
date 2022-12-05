@@ -40,11 +40,12 @@ You are encouraged to import the public classes and discover the extendable feat
 ### Examples
 
 Because the game is complicated, we provided 3 example runs.
-Under the folder : `./res/example/` is `p4run1.txt`, `p4run2.txt`, and `p4run3.txt`. <br />
+Under the folder : `./res/example/` is `p4run1.txt`, `p4run2.txt`, `p4run3.txt`, and `p4run4.txt`. <br />
 The Example basically initiated the whole game with the attributes given by the user. Then we can started the game by walking around, and print the situations we met. we can conduct certain actions and the running result is then printed. <br />
 The 3 examples have different focuses, the first one shows that we successfully hurt an otyugh, and then enter its cave, and survived for the first time, but got eaten the second time.<br />
 The second one shows that we can shoot the otyugh through a curved tunnel and hurt it.<br />
-The third one shows that we killed the otyugh and made it to the end destination, and won the game by end.<br />
+The third one shows that we killed the otyugh and made it to the end destination, and won the game by end.
+The forth one shows that our smelling system works fine by alerting 'Strong smell' when detected 2 otyughs 2 units far away.<br />
 
 ### Design
 

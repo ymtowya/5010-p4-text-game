@@ -44,7 +44,6 @@ public class DungeonGameImpl implements DungeonGame {
     pl = new DungeonPlayer(ma.getStart().getRow(),
         ma.getStart().getCol(), playerName);
     gc.enterGame(ma, pl);
-    // System.out.println(gc.getMapString(ma, pl));
   }
   
   public DungeonMap getMap() {

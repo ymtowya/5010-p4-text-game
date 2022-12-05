@@ -73,6 +73,8 @@ public class DungeonGameController {
         e.printStackTrace();
       } catch (NumberFormatException e) {
         continue;
+      } catch (IllegalArgumentException e) {
+        continue;
       }
     }
     return tmp;
@@ -132,34 +134,37 @@ public class DungeonGameController {
     try {
       gameSet();
       while (goon) {
-        String descPos = game.getPositionDes();
-        printOut(descPos);
-        String cmd = getStr(Set.of(new String[] {"m", "p", "s", "q"}),
-            "Move, Pickup, Shoot, or Quit (m-p-s-q)? :");
-        if ("m".equals(cmd)) {
-          Direction d = getDir();
-          if (game.playerCanWalk(d)) {
-            descPos = game.playerMove(d);
-          } else {
-            descPos = "Sorry, you cannot walk for this direction.\n";
+        try {
+          String descPos = game.getPositionDes();
+          printOut(descPos);
+          String cmd = getStr(Set.of(new String[] {"m", "p", "s", "q"}),
+              "Move, Pickup, Shoot, or Quit (m-p-s-q)? :");
+          if ("m".equals(cmd)) {
+            Direction d = getDir();
+            if (game.playerCanWalk(d)) {
+              descPos = game.playerMove(d);
+            } else {
+              descPos = "Sorry, you cannot walk for this direction.\n";
+            }
+          } else if ("p".equals(cmd)) {
+            descPos = game.playerPick();
+          } else if ("q".equals(cmd)) {
+            descPos = game.quit();
+          } else if ("s".equals(cmd)) {
+            Direction d = getDir();
+            int caveCounts = getInt(1, 5, "The number of caves (1 - 5) :");
+            descPos = game.shootArrow(d, caveCounts);
           }
-        } else if ("p".equals(cmd)) {
-          descPos = game.playerPick();
-        } else if ("q".equals(cmd)) {
-          descPos = game.quit();
-        } else if ("s".equals(cmd)) {
-          Direction d = getDir();
-          int caveCounts = getInt(1, 5, "The number of caves (1 - 5) :");
-          descPos = game.shootArrow(d, caveCounts);
+          printOut(descPos);
+          goon = !game.isOver();
+        } catch (IllegalArgumentException e) {
+          printOut("Your action was invalid, we'll ignore & continue anyway.\n");
+          continue;
         }
-        printOut(descPos);
-        goon = !game.isOver();
       }
       printOut(game.result());
       printOut(game.playerString());
     } catch (IOException e) {
-      e.printStackTrace();
-    } catch (IllegalArgumentException e) {
       e.printStackTrace();
     }
   }

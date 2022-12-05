@@ -111,8 +111,6 @@ public class GameCalculatorImpl implements GameCalculator {
     theMap.setStart(genetor.getStart());
     theMap.setEnd(genetor.getEnd());
     setTreasures(genetor, theMap, treasureProb);
-    // System.out.println(genetor.getAdjStr());
-    // System.out.println(genetor.getStepRecordString(theMap.getStart()));
     return theMap;
   }
 
