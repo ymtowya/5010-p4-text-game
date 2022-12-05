@@ -1,6 +1,5 @@
 package model.dungeon;
 
-import java.awt.dnd.DnDConstants;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +9,7 @@ import java.util.Set;
 import model.Direction;
 import model.accessory.ItemHolder;
 import model.accessory.Treasure;
+import model.creature.LifeCondition;
 import model.creature.Otyugh;
 import model.graph.Coordinate;
 
@@ -205,7 +205,6 @@ public class DungeonMapImpl implements DungeonMap {
 
   @Override
   public Coordinate getNextCoord(Coordinate c, Direction d) {
-    // TODO Auto-generated method stub
     return null;
   }
 
@@ -231,7 +230,8 @@ public class DungeonMapImpl implements DungeonMap {
   @Override
   public boolean hasOtyughAt(Coordinate c) {
     for (Otyugh o : otyughs) {
-      if (c.equals(o.getCoord())) {
+      if (c.equals(o.getCoord()) &&
+          o.getLifeCondition() != LifeCondition.DEAD) {
         return true;
       }
     }

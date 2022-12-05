@@ -78,23 +78,23 @@ public class DungeonGameDriver {
   }
   
   private static void setUp3() throws IOException {
-    try {
-      fileSetUp();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    log("\n---------START----------\n");
-    log("Initializing the Unwrapped Game:\n");
-    RandomHelper helper = new DungeonRandomHelper(14);
-    game = new GameCalculatorImpl(helper);
-    Player p1 = new DungeonPlayer(0, 0, "Tonnie");
-    DungeonMap m1 = game.initGame(7, 8, 4, false, 0.4);
-    runGame(m1, p1, helper);
-    log("\n\n---------NEW GAME----------\n");
-    log("Initializing the Wrapped Game:\n");
-    DungeonMap m2 = game.initGame(8, 8, 4, true, 0.75);
-    runGame(m2, p1, helper);
-    log("\n---------END----------\n");
+//    try {
+//      fileSetUp();
+//    } catch (IOException e) {
+//      e.printStackTrace();
+//    }
+//    log("\n---------START----------\n");
+//    log("Initializing the Unwrapped Game:\n");
+//    RandomHelper helper = new DungeonRandomHelper(14);
+//    game = new GameCalculatorImpl(helper);
+//    Player p1 = new DungeonPlayer(0, 0, "Tonnie");
+//    DungeonMap m1 = game.initGame(7, 8, 4, false, 0.4);
+//    runGame(m1, p1, helper);
+//    log("\n\n---------NEW GAME----------\n");
+//    log("Initializing the Wrapped Game:\n");
+//    DungeonMap m2 = game.initGame(8, 8, 4, true, 0.75);
+//    runGame(m2, p1, helper);
+//    log("\n---------END----------\n");
   }
 
   /**
@@ -102,24 +102,13 @@ public class DungeonGameDriver {
    *
    * @param args arguments
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
     
-    try {
-      
-      DungeonGameController controller = new DungeonGameController();
-      controller.run(br, bw);
-      
-      
-      // setUp4()
-      setUp3();
-      // setUp2()
-      writer.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    DungeonGameController controller = new DungeonGameController(br, bw);
+    controller.run();
   }
 
 }

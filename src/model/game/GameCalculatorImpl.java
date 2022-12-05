@@ -1,11 +1,16 @@
 package model.game;
 
+import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import model.Direction;
 import model.accessory.Arrow;
+import model.accessory.DungeonArrow;
 import model.accessory.ItemHolder;
 import model.accessory.Treasure;
 import model.creature.DungeonOtyugh;
@@ -15,7 +20,6 @@ import model.creature.Player;
 import model.creature.Smell;
 import model.dungeon.DungeonMap;
 import model.dungeon.DungeonMapImpl;
-import model.dungeon.Location;
 import model.graph.Coordinate;
 import model.graph.GridGenerator;
 import model.graph.KruskalGridGenerator;
@@ -77,9 +81,16 @@ public class GameCalculatorImpl implements GameCalculator {
       res.put(c, rh.treasureChoices(3));
     }
     m.setTreasures(res);
+    // Arrows
+    Set<Coordinate> locs = g.geneRandomLocs(coors.size() * 2);
+    for (Coordinate c : locs) {
+      Deque<Arrow> tmp = new LinkedList<>();
+      for (int i = rh.randomInt(1, 3); i > 0 ; --i) {
+        tmp.add(new DungeonArrow());
+      }
+      m.getHolderAt(c).addArrow(tmp);
+    }
   }
-  
-  
   
   @Override
   public DungeonMap initGame(int row, int col, int conn,
@@ -96,11 +107,14 @@ public class GameCalculatorImpl implements GameCalculator {
     genetor.setRandomEnd(5);
     
     Set<Otyugh> os = this.getOtyughs(otyughs);
+    genetor.updateSmellGrid(os);
     DungeonMap theMap = new DungeonMapImpl(row, col, conn, isWrap, os);
     theMap.setByAdjMap(genetor.getPlainGrid());
     theMap.setStart(genetor.getStart());
     theMap.setEnd(genetor.getEnd());
     setTreasures(genetor, theMap, treasureProb);
+    System.out.println(genetor.getAdjStr());
+    System.out.println(genetor.getStepRecordString(theMap.getStart()));
     return theMap;
   }
 
@@ -228,11 +242,16 @@ public class GameCalculatorImpl implements GameCalculator {
     sb.append("\nThis place is a ");
     if (m.isCave(c)) {
       sb.append("cave");
-      sb.append("\nTreasures at this location : \n");
+      sb.append("\nTreasures at this location : ");
       sb.append(m.getTreasuresAt(c).toString());
     } else {
-      sb.append("tunnel\nNo treasures in tunnel.");
+      sb.append("tunnel");
     }
+    sb.append("\nYou found ");
+    sb.append(m.getHolderAt(c).arrowCount());
+    sb.append(" arrows here.\n");
+    sb.append("You can walk through these directions: ");
+    sb.append(m.getDirectionsAt(c));
     sb.append("\n---- End Of Description ----\n");
     return sb.toString();
   }
@@ -314,6 +333,7 @@ public class GameCalculatorImpl implements GameCalculator {
     for (Coordinate c : caves) {
       Otyugh o = new DungeonOtyugh(c);
       otyughs.add(o);
+      System.out.println(o.getCoord());
     }
     return otyughs;
   }

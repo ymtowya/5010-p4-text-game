@@ -284,6 +284,14 @@ public class KruskalGridGenerator implements GridGenerator {
       }
       sb.append('\n');
     }
+    sb.append("\n\nSmells:\n");
+    for (int i = 0; i < row; ++i) {
+      for (int j = 0; j < col; ++j) {
+        sb.append(smells[i][j]);
+        sb.append(' ');
+      }
+      sb.append('\n');
+    }
     return sb.toString();
   }
   
@@ -313,6 +321,7 @@ public class KruskalGridGenerator implements GridGenerator {
     this.geneMst();
     // add to connectivity
     this.setNewConnectivity();
+    this.smells = new int[row][col];
   }
 
   @Override
@@ -479,8 +488,11 @@ public class KruskalGridGenerator implements GridGenerator {
     Set<Coordinate> secondLayer = new HashSet<>();
     for (Coordinate flc : firstLayer) {
       for (int d = 0; d < 4; ++d) {
-        if (canWalkAdj(flc, d) && !firstLayer.contains(flc)) {
-          secondLayer.add(getNextCoor(flc, d));
+        if (canWalkAdj(flc, d)) {
+          Coordinate next = getNextCoor(flc, d);
+          if (!firstLayer.contains(next)) {
+            secondLayer.add(getNextCoor(flc, d));
+          }
         }
       }
     }
@@ -528,6 +540,17 @@ public class KruskalGridGenerator implements GridGenerator {
     res.add(end);
     // TODO
     assert(res.size() == nums);
+    return res;
+  }
+
+  @Override
+  public Set<Coordinate> geneRandomLocs(int nums) {
+    Set<Coordinate> res = new HashSet<>();
+    for (int i = 0; i < nums; ++i) {
+      int r = rh.randomInt(0, row - 1);
+      int c = rh.randomInt(0, col - 1);
+      res.add(new Coordinate(r, c));
+    }
     return res;
   }
 

@@ -10,19 +10,21 @@ import model.graph.Coordinate;
 public interface DungeonGame {
   boolean playerCanWalk(Direction d);
   
-  void playerMove(Direction d);
+  String playerMove(Direction d);
   
-  void playerPickArrow();
+  String playerPickArrow();
   
   Integer getArrowCount();
   
-  void playerPickTreasure();
+  String playerPickTreasure();
+  
+  String playerPick();
   
   Map<Treasure, Integer> getTreasureMap();
   
   String shootArrow(Direction d, int caveCounts);
   
-  void quit();
+  String quit();
   
   String getPositionDes();
   

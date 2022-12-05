@@ -3,25 +3,13 @@ package controller;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import model.Direction;
-import model.accessory.Treasure;
-import model.creature.Smell;
 import model.game.DungeonGame;
 import model.game.DungeonGameImpl;
 
 public class DungeonGameController {
-  
-  static private Set<String> dirStrs;
-  static private Set<String> pickStrs;
-  static {
-    dirStrs = new HashSet<>(Arrays.asList("e", "s", "w", "n"));
-    pickStrs = new HashSet<>(Arrays.asList("pt", "pa"));
-  }
   
   private DungeonGame game;
   private int r;
@@ -32,166 +20,122 @@ public class DungeonGameController {
   private double percent;
   private int otyughNum;
   private BufferedReader reader;
-  private BufferedWriter bw;
+  private BufferedWriter writer;
   
-  private int getInt(String s) {
-    return Integer.parseInt(s);
+  public DungeonGameController(BufferedReader r, BufferedWriter w) {
+    this.reader = r;
+    this.writer = w;
   }
   
   private void printOut(String s) throws IOException {
-    bw.append(s);
-    bw.flush();
+    writer.append(s);
+    writer.flush();
   }
   
-  private void gameSet() {
-    try {
-      while (true) {
-        printOut("The number of rows for the dungeon (5 - 20) :");
-        String input = reader.readLine();
-        r = getInt(input);
-        if (r >= 5 && r <= 20) {
+  private int getInt(int mi, int ma, String hint) {
+    assert(mi <= ma);
+    int tmp = mi;
+    while(true) {
+      try {
+        printOut(hint);
+        String in = reader.readLine();
+        tmp = Integer.parseInt(in);
+        if (tmp <= ma && tmp >= mi) {
           break;
         } else {
           printOut("Invalid input. Please try again.\n");
         }
+      } catch (IOException e) {
+        e.printStackTrace();
+      } catch (NumberFormatException e) {
+        e.printStackTrace();
       }
-      while (true) {
-        printOut("The number of columns for the dungeon (5 - 20) :");
-        String input = reader.readLine();
-        c = getInt(input);
-        if (c >= 5 && c <= 20) {
-          break;
-        } else {
-          printOut("Invalid input. Please try again.\n");
-        }
-      }
-      while (true) {
-        printOut("The connectivity of the dungeon (0 - 10) :");
-        String input = reader.readLine();
-        conn = getInt(input);
-        if (conn >= 0 && conn <= 10) {
-          break;
-        } else {
-          printOut("Invalid input. Please try again.\n");
-        }
-      }
-      while (true) {
-        printOut("Is the dungeon wrapped or not (y/f) :");
-        String input = reader.readLine();
-        if ("y".equals(input) || "f".equals(input)) {
-          isWrap = "y".equals(input);
-          break;
-        } else {
-          printOut("Invalid input. Please try again.\n");
-        }
-      }
-      while (true) {
-        printOut("Percentage(%) of caves with treasures (0 - 100) :");
-        String input = reader.readLine();
-        int inNum = getInt(input);
-        if (inNum >= 0 && inNum <= 100) {
-          percent = (double) inNum / 100;
-          break;
-        } else {
-          printOut("Invalid input. Please try again.\n");
-        }
-      }
-      while (true) {
-        printOut("The name of the player :");
-        playerName = reader.readLine();
-        if (!"".equals(playerName)) {
-          break;
-        } else {
-          printOut("Invalid input. Please try again.\n");
-        }
-      }
-      while (true) {
-        printOut("The number of otyughs (1 - 10) :");
-        String input = reader.readLine();
-        otyughNum = getInt(input);
-        if (otyughNum >= 0 && otyughNum <= 10) {
-          break;
-        } else {
-          printOut("Invalid input. Please try again.\n");
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (NumberFormatException e) {
-      e.printStackTrace();
     }
+    return tmp;
   }
   
-  public Boolean run(BufferedReader reader, BufferedWriter bw) {
-    Boolean goon = true;
-    String input;
+  private String getStr(Set<String> ables, String hint) {
+    String tmp = "";
+    while(true) {
+      try {
+        printOut(hint);
+        tmp = reader.readLine().toLowerCase();
+        if (ables == null || ables.contains(tmp)) {
+          break;
+        } else {
+          printOut("Invalid input. Please try again.\n");
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    
+    return tmp;
+  }
+  
+  private Direction getDir() {
+    String tmp = getStr(Set.of(new String[] {"n", "e", "s", "w"}),
+        "Please input the Direction (n/e/s/w) : ");
+    return Direction.ofString(tmp);
+  }
+
+  private void gameSet() {
     try {
       printOut("Welcome to the dungeon game!\n" +
           "Please input key parameters for the game:\n\n");
+      this.r = getInt(5, 20, "The number of rows for the dungeon (5 - 20) :");
+      this.c = getInt(5, 20, "The number of columns for the dungeon (5 - 20) :");
+      this.conn = getInt(0, 10, "The connectivity of the dungeon (0 - 10) :");
+      this.isWrap = "y".equals(getStr(Set.of(new String[] {"y", "f"}),
+          "Is the dungeon wrapped or not (y/f) :"));
+      this.percent = (double) getInt(0, 100,
+          "Percentage(%) of caves with treasures (0 - 100) :") * 0.01;
+      this.playerName = getStr(null, "The name of the player :");
+      this.otyughNum = getInt(1, 10, "The number of otyughs (1 - 10) :");
+    } catch (NumberFormatException | IOException e) {
+      e.printStackTrace();
+    }
+    this.init();
+  }
+  
+  public Boolean run() {
+    Boolean goon = true;
+    try {
+      gameSet();
       while(goon) {
-        input = reader.readLine();
-        if (input == null) {
-          return false;
+        String descPos = game.getPositionDes();
+        printOut(descPos);
+        String cmd = getStr(Set.of(new String[] {"m", "p", "s", "q"}),
+          "Move, Pickup, Shoot, or Quit (m-p-s-q)? :");
+        if ("m".equals(cmd)) {
+          Direction d = getDir();
+          if (game.playerCanWalk(d)) {
+            descPos = game.playerMove(d);
+          } else {
+            descPos = "Sorry, you cannot walk for this direction.\n";
+          }
+        } else if ("p".equals(cmd)) {
+          descPos = game.playerPick();
+        } else if ("q".equals(cmd)) {
+          descPos = game.quit();
+        } else if ("s".equals(cmd)) {
+          Direction d = getDir();
+          int caveCounts = getInt(1, 5, "The number of caves (1 - 5) :");
+          descPos = game.shootArrow(d, caveCounts);
         }
-        bw.flush();
+        printOut(descPos);
+        goon = !game.isOver();
       }
     } catch (IOException e) {
+      e.printStackTrace();
+    } catch (IllegalArgumentException e) {
       e.printStackTrace();
     }
     return true;
   }
   
-  private void init(int r, int c, int conn, boolean isWrap,
-      String playerName, double percent, int otyughNum) {
+  private void init() {
     game = new DungeonGameImpl(r, c, conn, isWrap, playerName, percent, otyughNum);
   }
-  
-  private boolean isDirStr(String s) {
-    return dirStrs.contains(s);
-  }
-  
-  private boolean isPickStr(String s) {
-    return pickStrs.contains(s);
-  }
-  
-  private boolean isShootStr(String s) {
-    return "a".equals(s);
-  }
-  
-  private boolean isQuitStr(String s) {
-    return "q".equals(s);
-  }
-  
-  void dealInput(String s) {
-    if (isDirStr(s)) {
-      // move
-      Direction d;
-      if (game.playerCanWalk(d)) {
-        game.playerMove(d);
-      } else {
-        
-      }
-    } else if (isPickStr(s)) {
-      // pick
-      if ("pa".equals(s)) {
-        game.playerPickArrow();
-        int arrCount = game.getArrowCount();
-      } else {
-        game.playerPickTreasure();
-        Map<Treasure, Integer> trs = game.getTreasureMap();
-      }
-    } else if (isShootStr(s)) {
-      // shoot
-      Direction d;
-      int caveCounts;
-      game.shootArrow(d, caveCounts);
-    } else if (isQuitStr(s)) {
-      // quit
-      game.quit();
-    } else {
-      // exception
-    }
-    String state = game.getPositionDes();
-    Smell smell = game.getSmell();
-  }
+
 }

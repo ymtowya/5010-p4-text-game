@@ -1,9 +1,9 @@
 package model.game;
 
 import java.util.Map;
-import java.util.Set;
 
 import model.Direction;
+import model.accessory.ItemHolder;
 import model.accessory.Treasure;
 import model.creature.DungeonPlayer;
 import model.creature.Otyugh;
@@ -28,6 +28,8 @@ public class DungeonGameImpl implements DungeonGame{
     m = gc.initGame(r, c, conn, isWrap, percent, otyughNum);
     p = new DungeonPlayer(m.getStart().getRow(),
         m.getStart().getCol(), playerName);
+    gc.enterGame(m, p);
+    System.out.println(gc.getMapString(m, p));
   }
 
   @Override
@@ -39,28 +41,53 @@ public class DungeonGameImpl implements DungeonGame{
   }
 
   @Override
-  public void playerMove(Direction d) {
+  public String playerMove(Direction d) {
+    StringBuilder sb = new StringBuilder();
     gc.walkPlayer(m, p, d);
     Coordinate newCoor = getCoord();
+    sb.append("The player has moved to the new location: ");
+    sb.append(newCoor);
+    sb.append("\n");
     if (m.hasOtyughAt(newCoor)) {
       Otyugh o = m.getOtyughAt(newCoor);
       switch (o.getLifeCondition()) {
         case HEALTHY:
           p.setLife(false);
+          sb.append("Momb, Momb, Engurh, you are eaten by the Otyugh\n"
+              + "Better luck next time~\n");
           break;
         case HURT:
-          p.setLife(rh.escape());
+          Boolean escape = rh.escape();
+          p.setLife(escape);
+          sb.append("Whoooops! You run into a hurt otyugh.\n");
+          if (escape) {
+            sb.append("Luckily, you escape the cave successfully!\n");
+          } else {
+            sb.append("However, it still managed to eat you.\n"
+                + "Better luck next time~\n");
+          }
           break;
         default:
           break;
       }
     }
+    if (m.getEnd().equals(newCoor) && p.isAlive()) {
+      sb.append("Congratulations! You've made it to the destination!\n" +
+          "See you next time~\n");
+    }
+    return sb.toString();
   }
 
   @Override
-  public void playerPickArrow() {
-    // TODO Auto-generated method stub
-    
+  public String playerPickArrow() {
+    Coordinate c = getCoord();
+    ItemHolder ih = m.getHolderAt(c);
+    if (ih.hasArrow()) {
+      Integer nums = ih.arrowCount();
+      gc.pickArrow(m, p);
+      return "You picked up " + nums.toString() + " arrows;\n";
+    }
+    return "There are no arrows found here.\n";
   }
 
   @Override
@@ -69,8 +96,15 @@ public class DungeonGameImpl implements DungeonGame{
   }
 
   @Override
-  public void playerPickTreasure() {
-    gc.pickTreasure(m, p);
+  public String playerPickTreasure() {
+    Coordinate c = getCoord();
+    ItemHolder ih = m.getHolderAt(c);
+    Integer count = ih.getTotalTreasure();
+    if (count > 0) {
+      gc.pickTreasure(m, p);
+      return "You picked up " + count.toString() + " treasures;\n";
+    }
+    return "There are no treasures found here.\n";
   }
 
   @Override
@@ -85,13 +119,19 @@ public class DungeonGameImpl implements DungeonGame{
   }
 
   @Override
-  public void quit() {
+  public String quit() {
     p.setLife(false);
+    return "Game is over.\nSee you next time.\n";
   }
 
   @Override
   public String getPositionDes() {
-    return gc.getLocationString(m, getCoord());
+    StringBuilder sb = new StringBuilder();
+    sb.append(gc.getLocationString(m, getCoord()));
+    sb.append("The smell you feel here is : ");
+    sb.append(getSmell().name());
+    sb.append("\n");
+    return sb.toString();
   }
 
   @Override
@@ -112,6 +152,14 @@ public class DungeonGameImpl implements DungeonGame{
   @Override
   public Coordinate getCoord() {
     return p.getCoord();
+  }
+
+  @Override
+  public String playerPick() {
+    StringBuilder sb = new StringBuilder();
+    sb.append(playerPickTreasure());
+    sb.append(playerPickArrow());
+    return sb.toString();
   }
   
   

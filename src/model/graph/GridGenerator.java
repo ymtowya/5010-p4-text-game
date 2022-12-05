@@ -133,5 +133,7 @@ public interface GridGenerator {
   
   void updateSmellGrid(Set<Otyugh> otyughs);
   
+  Set<Coordinate> geneRandomLocs(int nums);
+  
   
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import model.accessory.Arrow;
+import model.accessory.DungeonArrow;
 import model.accessory.Treasure;
 import model.graph.Coordinate;
 
@@ -41,6 +42,9 @@ public class DungeonPlayer implements Player {
       this.treasures.put(t, 0);
     }
     this.arrows = new LinkedList<>();
+    for (int i = 0; i < 3; ++i) {
+      arrows.add(new DungeonArrow());
+    }
   }
 
   @Override

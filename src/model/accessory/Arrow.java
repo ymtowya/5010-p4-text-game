@@ -1,49 +1,9 @@
 package model.accessory;
 
-import model.graph.Coordinate;
-
 public interface Arrow {
 
-  /**
-   * Get the Row player is in.
-   *
-   * @return row
-   */
-  int getRow();
+  boolean isValid();
   
-  /**
-   * Get column the player is in.
-   *
-   * @return column
-   */
-  int getCol();
-  
-  /**
-   * Get coordinate of the player.
-   *
-   * @return coordinate
-   */
-  Coordinate getCoord();
-  
-  /**
-   * Set row.
-   *
-   * @param newRow new row
-   */
-  void setRow(int newRow);
-  
-  /**
-   * Set column.
-   *
-   * @param newCol new column
-   */
-  void setCol(int newCol);
-  
-  /**
-   * Set the position by the given coordinate.
-   *
-   * @param coor the new position in coordinate
-   */
-  void setByCoord(Coordinate coor);
+  void setValid(boolean v);
   
 }
