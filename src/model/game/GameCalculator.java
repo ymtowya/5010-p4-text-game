@@ -113,9 +113,28 @@ public interface GameCalculator {
    */
   Set<Direction> walkableDirs(DungeonMap m, Player p);
   
+  /**
+   * Player shoots the arrow in the dungeon.
+   * @param m map
+   * @param p player
+   * @param d direction
+   * @param caveNums number of caves
+   * @return result string
+   */
   String shootArrow(DungeonMap m, Player p, Direction d, int caveNums);
   
+  /**
+   * Get the smell the player can detect at certain position
+   * @param m map
+   * @param p player
+   * @return smell
+   */
   Smell getSmellAt(DungeonMap m, Player p);
   
+  /**
+   * Get the otyughs in a set
+   * @param num number of otyughs
+   * @return the set
+   */
   Set<Otyugh> getOtyughs(int num);
 }

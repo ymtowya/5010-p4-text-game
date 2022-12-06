@@ -22,7 +22,7 @@ This project is developed upon Project 3, adding several features to it, and pro
 
 * Run the driver:
 
-    Right-click the `controller.DungeonGameDriver` and run the application. We've set the input & output in the console, so you can use the system in/out to interact with it. <br />
+    Right-click the `controller.DungeonGameDriver` and run the application. We've set the input & output to connect to the console, so you can use the system in/out to interact with it. <br />
 
 * Run the JAR file:
 
